@@ -25,10 +25,16 @@
             "url": "https://github.com/sponsors/yiisoft"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/holdmann/yii3-definitions"
+        }
+    ],
     "require": {
-        "php": "8.0 - 8.4",
+        "php": "^7.4|8.0 - 8.4",
         "psr/container": "^1.0 || ^2.0",
-        "yiisoft/definitions": "^1.0 || ^2.0 || ^3.0.1"
+        "yiisoft/definitions": "dev-php7.4"
     },
     "require-dev": {
         "maglnet/composer-require-checker": "^4.4",

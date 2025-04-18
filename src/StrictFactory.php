@@ -28,7 +28,7 @@ final class StrictFactory
     public function __construct(
         array $definitions,
         ?ContainerInterface $container = null,
-        bool $validate = true,
+        bool $validate = true
     ) {
         if ($validate) {
             foreach ($definitions as $id => $definition) {
@@ -48,7 +48,7 @@ final class StrictFactory
      * @throws InvalidConfigException If definition configuration is not valid.
      * @return mixed The created object.
      */
-    public function create(string $id): mixed
+    public function create(string $id)
     {
         if (!$this->internalContainer->hasDefinition($id)) {
             throw new NotFoundException($id);

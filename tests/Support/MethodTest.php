@@ -16,7 +16,10 @@ final class MethodTest
         return $this->value;
     }
 
-    public function setValue(mixed $value): void
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value): void
     {
         $this->value = $value;
     }

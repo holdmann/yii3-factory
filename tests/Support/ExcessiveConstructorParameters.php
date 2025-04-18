@@ -8,10 +8,12 @@ use function func_get_args;
 
 final class ExcessiveConstructorParameters
 {
+    private $parameter;
     private array $allParameters;
 
-    public function __construct(private $parameter)
+    public function __construct($parameter)
     {
+        $this->parameter = $parameter;
         $this->allParameters = func_get_args();
     }
 

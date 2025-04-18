@@ -8,7 +8,10 @@ final class VariadicUnionType
 {
     private array $items;
 
-    public function __construct(int|string ...$closures)
+    /**
+     * @param int|string ...$closures
+     */
+    public function __construct(...$closures)
     {
         $this->items = $closures;
     }

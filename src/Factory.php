@@ -22,6 +22,10 @@ use function is_string;
  */
 final class Factory
 {
+    /**
+     * @var bool
+     */
+    private bool $validate = true;
     private FactoryInternalContainer $internalContainer;
 
     /**
@@ -34,8 +38,9 @@ final class Factory
     public function __construct(
         ?ContainerInterface $container = null,
         array $definitions = [],
-        private bool $validate = true
+        bool $validate = true
     ) {
+        $this->validate = $validate;
         $this->validateDefinitions($definitions);
         $this->internalContainer = new FactoryInternalContainer($container, $definitions);
     }
@@ -119,7 +124,7 @@ final class Factory
      * @psalm-return ($config is class-string ? T : mixed)
      * @psalm-suppress MixedReturnStatement
      */
-    public function create(mixed $config): mixed
+    public function create($config)
     {
         if ($this->validate) {
             DefinitionValidator::validate($config);
@@ -142,8 +147,9 @@ final class Factory
 
     /**
      * @throws InvalidConfigException
+     * @param mixed $config
      */
-    private function createDefinition(mixed $config): DefinitionInterface
+    private function createDefinition($config): DefinitionInterface
     {
         $definition = Normalizer::normalize($config);
 

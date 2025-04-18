@@ -6,8 +6,10 @@ namespace Yiisoft\Factory\Tests\Support;
 
 final class NullableConcreteDependency
 {
-    public function __construct(private ?Car $car)
+    private ?Car $car;
+    public function __construct(?Car $car)
     {
+        $this->car = $car;
     }
 
     public function getCar(): Car

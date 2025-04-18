@@ -27,6 +27,14 @@ use function is_string;
 final class FactoryInternalContainer implements ContainerInterface
 {
     /**
+     * @var ContainerInterface|null
+     */
+    private ?ContainerInterface $container;
+    /**
+     * @var array<string, mixed>
+     */
+    private array $definitions;
+    /**
      * @var array<string, DefinitionInterface> Object created from definitions indexed by their types.
      */
     private array $definitionInstances = [];
@@ -40,10 +48,10 @@ final class FactoryInternalContainer implements ContainerInterface
      * @param ContainerInterface|null $container Container to use for resolving dependencies.
      * @param array<string, mixed> $definitions Definitions to create objects with.
      */
-    public function __construct(
-        private ?ContainerInterface $container,
-        private array $definitions
-    ) {
+    public function __construct(?ContainerInterface $container, array $definitions)
+    {
+        $this->container = $container;
+        $this->definitions = $definitions;
     }
 
     /**
@@ -62,14 +70,15 @@ final class FactoryInternalContainer implements ContainerInterface
      * @inheritDoc
      *
      * @param string $id
+     * @return mixed
      */
-    public function get($id): mixed
+    public function get($id)
     {
         if ($this->hasDefinition($id)) {
             return $this->build($id);
         }
 
-        if ($this->container?->has($id)) {
+        if (($nullsafeVariable1 = $this->container) ? $nullsafeVariable1->has($id) : null) {
             return $this->container->get($id);
         }
 
@@ -78,10 +87,13 @@ final class FactoryInternalContainer implements ContainerInterface
 
     public function has($id): bool
     {
-        return $this->hasDefinition($id) || $this->container?->has($id);
+        return $this->hasDefinition($id) || (($nullsafeVariable2 = $this->container) ? $nullsafeVariable2->has($id) : null);
     }
 
-    public function create(DefinitionInterface $definition): mixed
+    /**
+     * @return mixed
+     */
+    public function create(DefinitionInterface $definition)
     {
         if ($definition instanceof ArrayDefinition) {
             $this->creatingIds[$definition->getClass()] = 1;
@@ -149,8 +161,9 @@ final class FactoryInternalContainer implements ContainerInterface
      * @throws InvalidConfigException
      * @throws NotFoundException
      * @throws NotInstantiableException
+     * @return mixed
      */
-    private function build(string $id): mixed
+    private function build(string $id)
     {
         if (isset($this->creatingIds[$id])) {
             throw new CircularReferenceException(

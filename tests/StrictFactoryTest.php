@@ -55,7 +55,7 @@ final class StrictFactoryTest extends TestCase
 
     public function testCreateWithInvalidFactoryDefinitionWithoutValidation(): void
     {
-        $factory = new StrictFactory(['x' => 42], validate: false);
+        $factory = new StrictFactory(['x' => 42], null, false);
 
         $this->expectException(InvalidConfigException::class);
         $factory->create('x');

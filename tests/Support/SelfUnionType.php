@@ -8,7 +8,10 @@ final class SelfUnionType
 {
     private string $color;
 
-    public function __construct(ColorInterface|self $source)
+    /**
+     * @param \Yiisoft\Factory\Tests\Support\ColorInterface|$this $source
+     */
+    public function __construct($source)
     {
         $this->color = $source->getColor();
     }

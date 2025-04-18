@@ -6,10 +6,12 @@ namespace Yiisoft\Factory\Tests\Support;
 
 final class EngineMarkOne implements EngineInterface
 {
+    private int $number = 0;
     public const NAME = 'Mark One';
 
-    public function __construct(private int $number = 0)
+    public function __construct(int $number = 0)
     {
+        $this->number = $number;
     }
 
     public function getName(): string

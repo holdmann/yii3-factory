@@ -6,8 +6,10 @@ namespace Yiisoft\Factory\Tests\Support;
 
 final class Cube
 {
-    public function __construct(private ColorInterface $color)
+    private ColorInterface $color;
+    public function __construct(ColorInterface $color)
     {
+        $this->color = $color;
     }
 
     public function getColor(): ColorInterface
